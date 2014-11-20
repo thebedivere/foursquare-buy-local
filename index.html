@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
+
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/vegas/jquery.vegas.css" />
+    <link rel="import" href="bower_components/paper-elements/paper-elements.html">
+    <link rel="import" href="bower_components/core-elements/core-elements.html">
+    <title>Project Llama</title>
+    <style>
+    </style>
+    <script type="text/javascript" src="bower_components/platform/platform.js">
+    </script>
+</head>
+
+<body fullbleed layout vertical>
+    <div id="loading">
+        <fa fa-spinner fa-4x id="#loading-image"></fa>
+    </div>
+    <core-scroll-header-panel flex mode="standard" class="onehun">
+        <div class="core-header">
+            <core-toolbar class="medium-tall">
+                <div flex layout around-justified horizontal>
+                    <div>
+
+                        <img src="img/logo.png" height="60px" class="headerLogo">
+                    </div>
+
+                </div>
+
+                <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit">
+                    <paper-tab id="paper-tab-1" active class="core-selected">
+                        <div id="tabContainer" center-justified center horizontal layout>
+                            <div class="tab-content">
+
+                                <content></content>
+                            </div>
+                        </div>MAP</paper-tab>
+                    <paper-tab id="paper-tab-2">
+                        <div id="tabContainer" center-justified center horizontal layout>
+                            <div class="tab-content">
+
+                                <content></content>
+                            </div>
+                        </div>BROWSE LIST</paper-tab>
+
+                    <paper-tab id="paper-tab-3">
+                        <div id="tabContainer" center-justified center horizontal layout>
+                            <div class="tab-content">
+
+                                <content></content>
+                            </div>
+                        </div>SPECIALS</paper-tab>
+
+                </paper-tabs>
+            </core-toolbar>
+
+        </div>
+        <div content class="top-buffer" class="onehun">
+            <!-- pages -->
+            <core-animated-pages transitions="cross-fade" selected="0" class="onehun">
+                <!--map-->
+                <section id="paper-tab-1" active flex class="onehun">
+                    <iframe src="map.html" id="map" id="bottom1" cross-fade>
+                    </iframe>
+                </section>
+                <!--/map-->
+                <!-- food and drink section -->
+                <section id="paper-tab-2">
+                    <div layout horizontal center center-justified cross-fade class="button-list">
+                    
+                    <div id="venueList">
+                            </div>       
+</div>
+                    <!--/food and drink-->
+                </section>
+
+                <!--specials-->
+                <section id="paper-tab-3">
+                    <div layout horizontal center center-justified cross-fade class="button-list">
+                        <div  id="bottom1">
+                        <div id="specials">
+
+                            </div>   
+                            </div>
+                    </div>
+                </section>
+                <!--/specials-->
+            </core-animated-pages>
+            <!-- scripts -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script type="text/javascript" src="phonegap.js"></script>
+            <script type="text/javascript" src="js/main.js"></script>
+            <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
+
+            <script type="text/javascript" src="js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="/vegas/jquery.vegas.js">
+            </script>
+            <script>
+                // vegas runs the background slideshow //
+                $.vegas('slideshow', {
+                    backgrounds: [{
+                        src: '/img/beerjpg.jpg',
+                        fade: 3000,
+                        delay: 5000,
+                    }, {
+                        src: '/img/haybuilding.jpg',
+                        fade: 3000,
+                        delay: 5000,
+                    }, {
+                        src: '/img/street1.jpg',
+                        fade: 3000,
+                        delay: 5000,
+                    }]
+                })('overlay', {
+                    src: '/vegas/overlays/11.png'
+                });
+            </script>
+            <script>
+                var tabs = document.querySelector('paper-tabs');
+                var pages = document.querySelector('core-animated-pages');
+                tabs.addEventListener('core-select', function() {
+                    console.log("Selected: " + tabs.selected);
+                    pages.selected = tabs.selected;
+                });
+            </script>
+            <script>
+                function toggleDialog(transition) {
+                    var dialog = document.querySelector('paper-dialog[transition=' + transition + ']');
+                    dialog.toggle();
+                }
+            </script>
+            <!-- this modal is for information about a venue -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog text-center">
+                    <div class="modal-content text-center">
+                        <div class="modal-body center-text">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                            </button>
+                            <div class="center-block center-text" id="content">
+                            </div>
+                            <div id="photos" horizontal layout justify wrap>
+                            </div>
+                            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+               $(document).ready(function() { getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
+              });
+        </script>
+       
+    </core-scroll-header-panel>
+
+    <body unresovled>
+        <script language="javascript" type="text/javascript">
+            // this is a loading screen to hide the page until all elements are ready //
+            $(window).load(function() {
+                $('#loading').hide();
+            });
+        </script>
+        
+    </body>
+</body>
+
+</html>

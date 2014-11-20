@@ -1,0 +1,280 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "<!DOCTYPE html>\n<html>\n\n<head>\n    <meta charset=\"utf-8\" />\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n    <meta name=\"format-detection\" content=\"telephone=no\" />\n    <meta name=\"format-detection\" content=\"email=no\">\n    <meta name=\"viewport\" content=\"user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi\" />\n    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />\n\n    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>\n\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"css/normalize.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"css/main.css\" />\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"/vegas/jquery.vegas.css\" />\n    <link rel=\"import\" href=\"bower_components/paper-elements/paper-elements.html\">\n    <link rel=\"import\" href=\"bower_components/core-elements/core-elements.html\">\n    <title>Project Llama</title>\n    <style>\n    </style>\n    <script type=\"text/javascript\" src=\"bower_components/platform/platform.js\">\n    </script>\n</head>\n\n<body fullbleed layout vertical>\n    <div id=\"loading\">\n        <fa fa-spinner fa-4x id=\"#loading-image\"></fa>\n    </div>\n    <core-scroll-header-panel flex mode=\"standard\" class=\"onehun\">\n        <div class=\"core-header\">\n            <core-toolbar class=\"medium-tall\">\n                <div flex layout around-justified horizontal>\n                    <div>\n\n                        <img src=\"img/logo.png\" height=\"60px\" class=\"headerLogo\">\n                    </div>\n\n                </div>\n\n                <paper-tabs selected=\"0\" selectedindex=\"0\" id=\"paper-tabs\" roll=\"tablist\" center-justified center horizontal layout class=\"bottom fit\">\n                    <paper-tab id=\"paper-tab-1\" active class=\"core-selected\">\n                        <div id=\"tabContainer\" center-justified center horizontal layout>\n                            <div class=\"tab-content\">\n\n                                <content></content>\n                            </div>\n                        </div>MAP</paper-tab>\n                    <paper-tab id=\"paper-tab-2\">\n                        <div id=\"tabContainer\" center-justified center horizontal layout>\n                            <div class=\"tab-content\">\n\n                                <content></content>\n                            </div>\n                        </div>BROWSE LIST</paper-tab>\n\n                    <paper-tab id=\"paper-tab-3\">\n                        <div id=\"tabContainer\" center-justified center horizontal layout>\n                            <div class=\"tab-content\">\n\n                                <content></content>\n                            </div>\n                        </div>SPECIALS</paper-tab>\n\n                </paper-tabs>\n            </core-toolbar>\n\n        </div>\n        <div content class=\"top-buffer\" class=\"onehun\">\n            <!-- pages -->\n            <core-animated-pages transitions=\"cross-fade\" selected=\"0\" class=\"onehun\">\n                <!--map-->\n                <section id=\"paper-tab-1\" active flex class=\"onehun\">\n                    <iframe src=\"map.html\" id=\"map\" id=\"bottom1\" cross-fade>\n                    </iframe>\n                </section>\n                <!--/map-->\n                <!-- food and drink section -->\n                <section id=\"paper-tab-2\">\n                    <div layout horizontal center center-justified cross-fade class=\"button-list\">\n                    \n                    <div id=\"venueList\">\n                            </div>       \n</div>\n                    <!--/food and drink-->\n                </section>\n\n                <!--specials-->\n                <section id=\"paper-tab-3\">\n                    <div layout horizontal center center-justified cross-fade class=\"button-list\">\n                        <div  id=\"bottom1\">\n                        <div id=\"specials\">\n\n                            </div>   \n                            </div>\n                    </div>\n                </section>\n                <!--/specials-->\n            </core-animated-pages>\n            <!-- scripts -->\n            <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js\"></script>\n            <script type=\"text/javascript\" src=\"phonegap.js\"></script>\n            <script type=\"text/javascript\" src=\"js/main.js\"></script>\n            <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>\n\n            <script type=\"text/javascript\" src=\"js/bootstrap.min.js\"></script>\n            <script type=\"text/javascript\" src=\"/vegas/jquery.vegas.js\">\n            </script>\n            <script>\n                // vegas runs the background slideshow //\n                $.vegas('slideshow', {\n                    backgrounds: [{\n                        src: '/img/beerjpg.jpg',\n                        fade: 3000,\n                        delay: 5000,\n                    }, {\n                        src: '/img/haybuilding.jpg',\n                        fade: 3000,\n                        delay: 5000,\n                    }, {\n                        src: '/img/street1.jpg',\n                        fade: 3000,\n                        delay: 5000,\n                    }]\n                })('overlay', {\n                    src: '/vegas/overlays/11.png'\n                });\n            </script>\n            <script>\n                var tabs = document.querySelector('paper-tabs');\n                var pages = document.querySelector('core-animated-pages');\n                tabs.addEventListener('core-select', function() {\n                    console.log(\"Selected: \" + tabs.selected);\n                    pages.selected = tabs.selected;\n                });\n            </script>\n            <script>\n                function toggleDialog(transition) {\n                    var dialog = document.querySelector('paper-dialog[transition=' + transition + ']');\n                    dialog.toggle();\n                }\n            </script>\n            <!-- this modal is for information about a venue -->\n            <div class=\"modal fade\" id=\"myModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\" aria-hidden=\"true\">\n                <div class=\"modal-dialog text-center\">\n                    <div class=\"modal-content text-center\">\n                        <div class=\"modal-body center-text\">\n                            <button type=\"button\" class=\"close\" data-dismiss=\"modal\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span>\n                            </button>\n                            <div class=\"center-block center-text\" id=\"content\">\n                            </div>\n                            <div id=\"photos\" horizontal layout justify wrap>\n                            </div>\n                            <button type=\"button\" class=\"btn btn-success btn-block\" data-dismiss=\"modal\">Close</button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <script>\n               $(document).ready(function() { getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');\n              });\n        </script>\n       \n    </core-scroll-header-panel>\n\n    <body unresovled>\n        <script language=\"javascript\" type=\"text/javascript\">\n            // this is a loading screen to hide the page until all elements are ready //\n            $(window).load(function() {\n                $('#loading').hide();\n            });\n        </script>\n        \n    </body>\n</body>\n\n</html>",
+			"file": "index.html",
+			"file_size": 7824,
+			"file_write_time": 130608936033843948,
+			"settings":
+			{
+				"buffer_size": 7824,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ui.html",
+			"settings":
+			{
+				"buffer_size": 3248,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "css/main.css",
+			"settings":
+			{
+				"buffer_size": 4246,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/josh/Documents/Development/project-llama",
+		"/home/josh/Documents/Development/project-llama/bower_components"
+	],
+	"file_history":
+	[
+		"/home/josh/.project-neon5-kde/config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
+		"/home/josh/Documents/Development/test.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7824,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2944,
+								2944
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 510.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ui.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3248,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								961,
+								961
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 460.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "css/main.css",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 4246,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3264.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "llama.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 249.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,11 @@
+Foursquare
+
+Client id
+3QTLUAHSRGLKOZ4TKU1SEFG0T01PFBP3S1ZVQCM3CS5ZOPLB
+
+Client secret
+HAEE5Z544S1H4UF23IK4UPPGZ4R4EUTSTA5EK5DRGLKDQLHK
+
+
+When configuring your app on Foursquare, set your auth callback to http://thebedivere.webshell.io/auth/bin/foursquare
+

@@ -7,126 +7,328 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
-
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
-
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <link rel="stylesheet" type="text/css" href="/vegas/jquery.vegas.css" />
+
     <link rel="import" href="bower_components/paper-elements/paper-elements.html">
     <link rel="import" href="bower_components/core-elements/core-elements.html">
-    <title>Project Llama</title>
+     <link rel="import" href="bower_components/core-scroll-header-panel/demos/sample-content.html">
+    <title>Deal Me Local</title>
     <style>
     </style>
-    <script type="text/javascript" src="bower_components/platform/platform.js">
-    </script>
+
+      <style shim-shadowdom>
+  
+    body {
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+        font-size: 1em;
+      margin: 0;
+      padding:0;
+      color: #333;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
+    }
+    
+    paper-tabs, core-toolbar {
+      background-color: #00aeef;
+        font-size: 1.2em;
+      color: #fff;
+      box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    core-toolbar paper-tabs {
+      box-shadow: none;
+    }
+    
+   
+    
+    h3 {
+      font-size: 1em;
+      font-weight: 400;
+    }
+          
+          core-scroll-header-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    /* background for toolbar when it is at its full size */
+    core-scroll-header-panel::shadow #headerBg {
+      background-image: url(img/bridge.jpg);
+    }
+
+    /* background for toolbar when it is condensed */
+    core-scroll-header-panel::shadow #condensedHeaderBg {
+      background-color: #2980b9;
+    }
+
+    core-toolbar {
+      color: #f1f1f1;
+      fill: #f1f1f1;
+      background-color: transparent;
+    }
+
+    .title {
+      -webkit-transform-origin: 0;
+      transform-origin: 0;
+      font-size: 40px;
+    }
+#container {
+      overflow: auto;
+    }
+
+           #map {
+               position: fixed;
+            left: 0px;
+            top:0px;
+               right: 0px;
+            bottom:0px;
+            width:100%;
+            height: 100%;
+               
+        }
+       
+        .ui-button { 
+            display:block;
+            position: fixed;
+            bottom:10%px;
+            right:10%;
+            width:160px;
+            margin:-20px 0 0 -80px;
+            z-index:100;
+            text-align:center;
+            margin: 8px;
+      background-color: tomato;
+            color: #eee;
+      border-radius: 4px;
+      cursor: default;
+        }
+
+         
+    .view {
+      font-size: 250px;
+      background-color: tomato;
+    }
+     .venue-blocks {
+        
+            text-align: center;    
+         top: 0px;
+         bottom: 0px;
+         left: 0px;
+         right: 0px;  
+     
+
+        }
+  </style>
 </head>
-
 <body fullbleed layout vertical>
-    <div id="loading">
-        <fa fa-spinner fa-4x id="#loading-image"></fa>
-    </div>
-    <core-scroll-header-panel flex mode="standard" class="onehun">
-        <div class="core-header">
-            <core-toolbar class="medium-tall">
-                <div flex layout around-justified horizontal>
-                    <div>
+<polymer-element name="music-demo">
+  <template>
 
-                        <img src="img/logo.png" height="60px" class="headerLogo">
-                    </div>
+    <style>
+  
 
-                </div>
+      .chip {
+        display: inline-block;
+     
+        border-radius: 3px;
+        margin: 4px;
+        overflow: hidden;
+        text-align: start;
+        background-color: #fff;
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+      }
 
-                <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit">
-                    <paper-tab id="paper-tab-1" active class="core-selected">
-                        <div id="tabContainer" center-justified center horizontal layout>
-                            <div class="tab-content">
+      .chip-top {
+        width: 200px;
+        height: 200px;
+      }
 
-                                <content></content>
-                            </div>
-                        </div>MAP</paper-tab>
-                    <paper-tab id="paper-tab-2">
-                        <div id="tabContainer" center-justified center horizontal layout>
-                            <div class="tab-content">
+      .chip-bottom {
+        padding: 8px;
+        line-height: 1.5;
+      }
 
-                                <content></content>
-                            </div>
-                        </div>BROWSE LIST</paper-tab>
+      .chip-album-title {
+        font-weight: bold;
+      }
 
-                    <paper-tab id="paper-tab-3">
-                        <div id="tabContainer" center-justified center horizontal layout>
-                            <div class="tab-content">
+      #details {
+        padding: 200px 10% 0;
+      }
 
-                                <content></content>
-                            </div>
-                        </div>SPECIALS</paper-tab>
+      .card {
+        height: 400px;
+        border-radius: 3px;
+        text-align: start;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
 
-                </paper-tabs>
-            </core-toolbar>
+      .card-left {
+        width: 400px;
+      }
+
+      .card-right {
+        padding: 24px;
+      }
+
+      .card-icon {
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        margin-right: 16px;
+      }
+
+      .card-album-title {
+        font-size: 2em;
+      }
+        
+   
+    </style>
+
+    <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}" class="venue-blocks">
+
+      <section>
+
+        <div hero-p on-tap="{{transition}}">
+
+          <template repeat="{{items as item}}">
+
+            <div class="chip" hero-id="{{item.artist}}-{{item.album}}" hero?="{{selectedAlbum === item }}">
+              <div class="chip-top" style="background:{{item.color}};" hero-id="{{item.artist}}-{{item.album}}-art" hero?="{{selectedAlbum === item}}"></div>
+              <div class="chip-bottom">
+                <div class="chip-album-title">{{item.album}}</div>
+                <div class="chip-artist">{{item.artist}}</div>
+              </div>
+            </div>
+
+          </template>
 
         </div>
-        <div content class="top-buffer" class="onehun">
+      </section>
+
+<section id="details">
+
+        <div class="card" layout horizontal hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}" hero on-tap="{{transition}}">
+          <div class="card-left" style="background:{{selectedAlbum.color}};" hero-id="{{selectedAlbum.artist}}-{{selectedAlbum.album}}-art" hero></div>
+          <div class="card-right" flex>
+            <div layout horizontal center>
+              <div>
+                <div class="card-icon" style="background:{{selectedAlbum.color}};"></div>
+              </div>
+              <div flex>
+                <div class="card-album-title">{{selectedAlbum.album}}</div>
+                <div class="card-album-artist">{{selectedAlbum.artist}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+    </core-animated-pages>
+
+  </template>
+  <script>
+
+    Polymer('music-demo', {
+
+      page: 0,
+
+      items: [
+        { artist: 'Tycho', album: 'Fragments', color: '#f4db33' },
+        { artist: 'Tycho', album: 'Past Prologue', color: '#972ff8' },
+        { artist: 'Tycho', album: 'Spectre', color: '#7dd6fe' },
+        { artist: 'Tycho', album: 'Awake', color: '#dc3c84' }
+      ],
+
+      selectedAlbum: null,
+
+      transition: function(e) {
+        if (this.page === 0 && e.target.templateInstance.model.item) {
+          this.selectedAlbum = e.target.templateInstance.model.item;
+          this.page = 1;
+        } else {
+          this.page = 0;
+        }
+      }
+    });
+
+  </script>
+  </polymer-element>
+
+
+
+    <core-scroll-header-panel condenses>
+
+    <core-toolbar class="tall" flex navigation>
+           
+     
+     <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit">
+                    <paper-tab id="paper-tab-1" active class="core-selected">MAP</paper-tab>
+                    <paper-tab id="paper-tab-2">
+                        BROWSE</paper-tab>
+                    <paper-tab id="paper-tab-3">
+                        DEALS</paper-tab>
+                </paper-tabs>
+      
+                
+            </core-toolbar>
+         <div content class="top-buffer" class="onehun">
             <!-- pages -->
+              
             <core-animated-pages transitions="cross-fade" selected="0" class="onehun">
                 <!--map-->
                 <section id="paper-tab-1" active flex class="onehun">
-                    <iframe src="map.html" id="map" id="bottom1" cross-fade>
-                    </iframe>
+                    <div cross-fade class="onehun">
+                        <div  id="bottom1" flex class="onehun">
+                           
+    <paper-button raised href='#' id='geolocate' class='btn btn-primary ui-button'>Show my location</paper-button>
+    <div id='map'><img src="img/edged.jpg" class="backdrop" class="onehun"></div>
+                            </div>
+                    </div>
                 </section>
                 <!--/map-->
-                <!-- food and drink section -->
-                <section id="paper-tab-2">
-                    <div layout horizontal center center-justified cross-fade class="button-list">
-                    
-                    <div id="venueList">
-                            </div>       
-</div>
-                    <!--/food and drink-->
-                </section>
+                <!-- Browse -->
+                <section id="paper-tab-2" flex class="onehun">
+                    <div layout horizontal center  cross-fade class="onehun">
+                        <div  id="bottom1" layout horizontal center  class="venue-blocks">
+                           
 
-                <!--specials-->
+  <music-demo class="onehun"> </music-demo>
+                    </div>
+                    </div>
+      </section>
+                    <!--/Browse-->
+                <!--deals -->
                 <section id="paper-tab-3">
-                    <div layout horizontal center center-justified cross-fade class="button-list">
+                    <div layout horizontal center center-justified cross-fade>
                         <div  id="bottom1">
-                        <div id="specials">
-
-                            </div>   
+                        <div class="content">
+      <sample-content size="100"></sample-content>
+                            </div>
                             </div>
                     </div>
                 </section>
                 <!--/specials-->
             </core-animated-pages>
+        </div>
+   </core-scroll-header-panel>
             <!-- scripts -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-            <script type="text/javascript" src="phonegap.js"></script>
-            <script type="text/javascript" src="js/main.js"></script>
-            <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
-
-            <script type="text/javascript" src="js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="/vegas/jquery.vegas.js">
-            </script>
-            <script>
-                // vegas runs the background slideshow //
-                $.vegas('slideshow', {
-                    backgrounds: [{
-                        src: '/img/beerjpg.jpg',
-                        fade: 3000,
-                        delay: 5000,
-                    }, {
-                        src: '/img/haybuilding.jpg',
-                        fade: 3000,
-                        delay: 5000,
-                    }, {
-                        src: '/img/street1.jpg',
-                        fade: 3000,
-                        delay: 5000,
-                    }]
-                })('overlay', {
-                    src: '/vegas/overlays/11.png'
-                });
-            </script>
+        <script type="text/javascript" src="bower_components/platform/platform.js">
+    </script>
+     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+          
             <script>
                 var tabs = document.querySelector('paper-tabs');
                 var pages = document.querySelector('core-animated-pages');
@@ -141,39 +343,58 @@
                     dialog.toggle();
                 }
             </script>
-            <!-- this modal is for information about a venue -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog text-center">
-                    <div class="modal-content text-center">
-                        <div class="modal-body center-text">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                            </button>
-                            <div class="center-block center-text" id="content">
-                            </div>
-                            <div id="photos" horizontal layout justify wrap>
-                            </div>
-                            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script>
-               $(document).ready(function() { getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
-              });
-        </script>
-       
-    </core-scroll-header-panel>
+      <script>
+
+    // custom transformation: scale header's title
+    var titleStyle = document.querySelector('.title').style;
+    addEventListener('core-header-transform', function(e) {
+      var d = e.detail;
+      var m = d.height - d.condensedHeight;
+      var scale = Math.max(0.75, (m - d.y) / (m / 0.25)  + 0.75);
+      titleStyle.transform = titleStyle.webkitTransform =
+          'scale(' + scale + ') translateZ(0)';
+    });
+
+  </script>
+    <script>
+
+    addEventListener('template-bound', function(e) {
+      var scope = e.target;
+      var items = [], count=50;
+      for (var i=0; i < count; i++) {
+        items.push(i);
+      }
+
+      scope.items = items;
+
+      scope.selectView = function(e) {
+        var i = e.target.templateInstance.model.item;
+        this.$.pages.selected = i+1;
+      }
+
+      scope.back = function() {
+        this.lastSelected = this.$.pages.selected;
+        console.log(this.lastSelected);
+        this.$.pages.selected = 0;
+      }
+
+      scope.transitionend = function() {
+        if (this.lastSelected) {
+          this.lastSelected = null;
+        }
+      }
+    })
+
+  </script>
+
+          
+
 
     <body unresovled>
-        <script language="javascript" type="text/javascript">
-            // this is a loading screen to hide the page until all elements are ready //
-            $(window).load(function() {
-                $('#loading').hide();
-            });
-        </script>
+        
         
     </body>
+       
 </body>
 
 </html>

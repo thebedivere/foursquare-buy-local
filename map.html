@@ -9,180 +9,177 @@
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <link rel="import" href="bower_components/paper-elements/paper-elements.html">
+    <link rel="import" href="bower_components/paper-elements/paper-elements.html">
     <link rel="import" href="bower_components/core-elements/core-elements.html">
     <script type="text/javascript" src="bower_components/platform/platform.js"></script>
 
     <style>
         body {
-            margin:0;
-            padding:0;
+            margin: 0;
+            padding: 0;
         }
         #map {
-            position:absolute;
-            top:0;
-            bottom:0;
-            width:100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
         }
-       
-        .ui-button { 
-            display:block;
-            position:absolute;
-            bottom:10%px;
-            right:10%;
-            width:160px;
-            margin:-20px 0 0 -80px;
-            z-index:100;
-            text-align:center;
+        .ui-button {
+            display: block;
+            position: absolute;
+            bottom: 10%px;
+            right: 10%;
+            width: 160px;
+            margin: -20px 0 0 -80px;
+            z-index: 100;
+            text-align: center;
         }
-       
-
     </style>
 </head>
 
 <body>
     <div class="bg1">
-    <button href='#' id='geolocate' class='btn btn-primary ui-button'>Show my location</button>
-    <div id='map'></div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog text-center">
-            <div class="modal-content text-center">
-                <div class="modal-body center-text">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-                    </button>
-                    <div class="center-block center-text" id="content">
+        <button href='#' id='geolocate' class='btn btn-primary ui-button'>Show my location</button>
+        <div id='map'></div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog text-center">
+                <div class="modal-content text-center">
+                    <div class="modal-body center-text">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                        </button>
+                        <div class="center-block center-text" id="content">
+                        </div>
+                        <div id="photos" horizontal layout justify wrap>
+                        </div>
+                        <paper-button type="button" data-dismiss="modal">Close</paper-button>
                     </div>
-                    <div id="photos" horizontal layout justify wrap>
-                    </div>
-                    <paper-button type="button" data-dismiss="modal">Close</paper-button>
                 </div>
             </div>
         </div>
-    </div>
-    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.1.0/mapbox.directions.js'></script>
-    <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.1.0/mapbox.directions.css' type='text/css' />
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="phonegap.js"></script>
-    <!-- jQuery is required for this example. -->
-    <script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
-    <script>
-        L.mapbox.accessToken = 'pk.eyJ1IjoidGhlYmVkaXZlcmUiLCJhIjoiZjJ0RzZrUSJ9.6eOjCS4T0J4cL9g2FhUYcQ';
-        var geolocate = document.getElementById('geolocate');
-        var map = L.mapbox.map('map', 'thebedivere.jof32cnp', {
-            zoomControl: false
-        }).setView([43.661471, -70.255326], 14);
-         // Credit Foursquare for their wonderful data
-        map.attributionControl.setPosition('bottomleft');
-        map.attributionControl.addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
-        var myLayer = L.mapbox.featureLayer().addTo(map);
-        var layers = document.getElementById('menu-ui');
-        var venueAPI = 'https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?oauth_token=NJZESUCEVA5ZWYFK5ZJEMINIRK2XWTF34DTS2J2TY2GU44TE&v=20141022';
-        var places = L.mapbox.featureLayer().addTo(map);
-        $.getJSON(venueAPI, function(data) {
-            var arr = [];
-            var venuearr = [];
-            $('#content').empty();
-            console.log(data);
-            b = '<br/>';
-            arr = data.response.list.listItems;
-            venuearr = arr.items;
-            venuearrlength = arr.items.length;
-            console.log(venuearr);
-            console.log(venuearrlength);
-            for(var i = 0; i < venuearrlength; i++) {
-                var venue = venuearr[i].venue;
-                var type = venuearr[i].venue.categories[0].name;
-                latlng = L.latLng(venue.location.lat, venue.location.lng);
-                if(type === 'Pub') {
-                    var marker = L.marker(latlng, {
-                        icon: L.mapbox.marker.icon({
-                            'marker-color': '#d35400',
-                            'marker-size': 'large',
-                            'marker-symbol': 'beer'
-                        })
-                    }).bindPopup('<strong><button data-toggle="modal" data-target="#myModal" id="beer" onclick="getinfo("https://api.foursquare.com/v2/venues/' + venue.id + '?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");">' + venue.name + '</button></strong>').addTo(places);
-                }
-                if(type === 'Coffee Shop') {
-                    var marker = L.marker(latlng, {
-                        icon: L.mapbox.marker.icon({
-                            'marker-color': '#804115',
-                            'marker-size': 'large',
-                            'marker-symbol': 'cafe'
-                        })
-                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-                }
-                if(type === 'Thrift / Vintage Store') {
-                    var marker = L.marker(latlng, {
-                        icon: L.mapbox.marker.icon({
-                            'marker-color': '#3498db',
-                            'marker-size': 'large',
-                            'marker-symbol': 'shop'
-                        })
-                    }).bindPopup('<button class="btn btn-success btn-block btn-lg" data-toggle="modal" data-target="#myModal" id="bullFeenys" onclick="getinfo("https://api.foursquare.com/v2/venues/466428cef964a5207b471fe3?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");" id="bottom1">Bull Feenys</button><strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-                }
-                if(type === 'Design Studio') {
-                    var marker = L.marker(latlng, {
-                        icon: L.mapbox.marker.icon({
-                            'marker-color': '#e74c3c',
-                            'marker-size': 'large',
-                            'marker-symbol': 'art-gallery'
-                        })
-                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-                }
-                if(type === 'Bakery') {
-                    var marker = L.marker(latlng, {
-                        icon: L.mapbox.marker.icon({
-                            'marker-color': '#f1c40f',
-                            'marker-size': 'large',
-                            'marker-symbol': 'bakery'
-                        })
-                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-                }
-                if(type === 'Music Store') {
-                    var marker = L.marker(latlng, {
-                        icon: L.mapbox.marker.icon({
-                            'marker-color': '#2ecc71',
-                            'marker-size': 'large',
-                            'marker-symbol': 'music'
-                        })
-                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-                }
-            }
-        });
-        if(!navigator.geolocation) {
-            geolocate.innerHTML = 'Geolocation is not available';
-        } else {
-            geolocate.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                map.locate();
-            };
-        }
-         // Once we've got a position, zoom and center the map
-         // on it, and add a single marker.
-        map.on('locationfound', function(e) {
-            map.fitBounds(e.bounds);
-            myLayer.setGeoJSON({
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [e.latlng.lng, e.latlng.lat]
-                },
-                properties: {
-                    'title': 'Your current location',
-                    'marker-color': '#ff8888',
-                    'marker-symbol': 'star'
+        <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.1.0/mapbox.directions.js'></script>
+        <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.1.0/mapbox.directions.css' type='text/css' />
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <!-- jQuery is required for this example. -->
+        <script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+        <script>
+            L.mapbox.accessToken = 'pk.eyJ1IjoidGhlYmVkaXZlcmUiLCJhIjoiZjJ0RzZrUSJ9.6eOjCS4T0J4cL9g2FhUYcQ';
+            var geolocate = document.getElementById('geolocate');
+            var map = L.mapbox.map('map', 'thebedivere.jof32cnp', {
+                zoomControl: false
+            }).setView([43.661471, -70.255326], 14);
+             // Credit Foursquare for their wonderful data
+            map.attributionControl.setPosition('bottomleft');
+            map.attributionControl.addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
+            var myLayer = L.mapbox.featureLayer().addTo(map);
+            var layers = document.getElementById('menu-ui');
+            var venueAPI = 'https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?oauth_token=NJZESUCEVA5ZWYFK5ZJEMINIRK2XWTF34DTS2J2TY2GU44TE&v=20141022';
+            var places = L.mapbox.featureLayer().addTo(map);
+            $.getJSON(venueAPI, function (data) {
+                var arr = [];
+                var venuearr = [];
+                $('#content').empty();
+                console.log(data);
+                b = '<br/>';
+                arr = data.response.list.listItems;
+                venuearr = arr.items;
+                venuearrlength = arr.items.length;
+                console.log(venuearr);
+                console.log(venuearrlength);
+                for (var i = 0; i < venuearrlength; i++) {
+                    var venue = venuearr[i].venue;
+                    var type = venuearr[i].venue.categories[0].name;
+                    latlng = L.latLng(venue.location.lat, venue.location.lng);
+                    if (type === 'Pub') {
+                        var marker = L.marker(latlng, {
+                            icon: L.mapbox.marker.icon({
+                                'marker-color': '#d35400',
+                                'marker-size': 'large',
+                                'marker-symbol': 'beer'
+                            })
+                        }).bindPopup('<strong><button data-toggle="modal" data-target="#myModal" id="beer" onclick="getinfo("https://api.foursquare.com/v2/venues/' + venue.id + '?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");">' + venue.name + '</button></strong>').addTo(places);
+                    }
+                    if (type === 'Coffee Shop') {
+                        var marker = L.marker(latlng, {
+                            icon: L.mapbox.marker.icon({
+                                'marker-color': '#804115',
+                                'marker-size': 'large',
+                                'marker-symbol': 'cafe'
+                            })
+                        }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                    }
+                    if (type === 'Thrift / Vintage Store') {
+                        var marker = L.marker(latlng, {
+                            icon: L.mapbox.marker.icon({
+                                'marker-color': '#3498db',
+                                'marker-size': 'large',
+                                'marker-symbol': 'shop'
+                            })
+                        }).bindPopup('<button class="btn btn-success btn-block btn-lg" data-toggle="modal" data-target="#myModal" id="bullFeenys" onclick="getinfo("https://api.foursquare.com/v2/venues/466428cef964a5207b471fe3?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");" id="bottom1">Bull Feenys</button><strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                    }
+                    if (type === 'Design Studio') {
+                        var marker = L.marker(latlng, {
+                            icon: L.mapbox.marker.icon({
+                                'marker-color': '#e74c3c',
+                                'marker-size': 'large',
+                                'marker-symbol': 'art-gallery'
+                            })
+                        }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                    }
+                    if (type === 'Bakery') {
+                        var marker = L.marker(latlng, {
+                            icon: L.mapbox.marker.icon({
+                                'marker-color': '#f1c40f',
+                                'marker-size': 'large',
+                                'marker-symbol': 'bakery'
+                            })
+                        }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                    }
+                    if (type === 'Music Store') {
+                        var marker = L.marker(latlng, {
+                            icon: L.mapbox.marker.icon({
+                                'marker-color': '#2ecc71',
+                                'marker-size': 'large',
+                                'marker-symbol': 'music'
+                            })
+                        }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                    }
                 }
             });
-        });
-         // If the user chooses not to allow their location
-         // to be shared, display an error message.
-        map.on('locationerror', function() {
-            geolocate.innerHTML = 'Position could not be found';
-        });
-    </script>
-        </div>
+            if (!navigator.geolocation) {
+                geolocate.innerHTML = 'Geolocation is not available';
+            } else {
+                geolocate.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    map.locate();
+                };
+            }
+             // Once we've got a position, zoom and center the map
+             // on it, and add a single marker.
+            map.on('locationfound', function (e) {
+                map.fitBounds(e.bounds);
+                myLayer.setGeoJSON({
+                    type: 'Feature',
+                    geometry: {
+                        type: 'Point',
+                        coordinates: [e.latlng.lng, e.latlng.lat]
+                    },
+                    properties: {
+                        'title': 'Your current location',
+                        'marker-color': '#ff8888',
+                        'marker-symbol': 'star'
+                    }
+                });
+            });
+             // If the user chooses not to allow their location
+             // to be shared, display an error message.
+            map.on('locationerror', function () {
+                geolocate.innerHTML = 'Position could not be found';
+            });
+        </script>
+    </div>
 </body>
 
 </html>

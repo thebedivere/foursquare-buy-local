@@ -2,188 +2,711 @@
 <html>
 
 <head>
+    <TITLE>Deal Me Local</TITLE>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-     <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  
-  <script src="resources/platform/platform.js"></script>
-
- <link rel="import" href="resources/core-scroll-header-panel/core-scroll-header-panel.html">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="index.js"></script>
+    <script src="js/temp.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="resources/platform/platform.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
+    <link rel="import" href="resources/core-scroll-header-panel/core-scroll-header-panel.html">
     <link rel="import" href="resources/paper-tabs/paper-tab.html">
-  <link rel="import" href="resources/core-item/core-item.html">
-   <link rel="import" href="resources/core-scaffold/core-scaffold.html">
-<link rel="stylesheet" type="text/css" href="css/main.css" />
-         <style>
-
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-  
-    body {
-      font-family: sans-serif;
-    }
-     body {
-      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-        font-size: 1em;
-      margin: 0;
-      padding:0;
-      color: #333;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      -webkit-touch-callout: none;
-    }
-    
-    paper-tabs, core-toolbar {
-      background-color: #00aeef;
-        font-size: 1.2em;
-      color: #fff;
-      box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-    }
-    
-    core-toolbar paper-tabs {
-      box-shadow: none;
-    }
-    
-   
-    
-    h3 {
-      font-size: 1em;
-      font-weight: 400;
-    }
-          
-          core-scroll-header-panel {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-
-    /* background for toolbar when it is at its full size */
-    core-scroll-header-panel::shadow #headerBg {
-      background-image: url(img/bridge.jpg);
-    }
-
-    /* background for toolbar when it is condensed */
-    core-scroll-header-panel::shadow #condensedHeaderBg {
-      background-color: #2980b9;
-    }
-
-    core-toolbar {
-      color: #f1f1f1;
-      fill: #f1f1f1;
-      background-color: transparent;
-    }
-
-    .title {
-      -webkit-transform-origin: 0;
-      transform-origin: 0;
-      font-size: 40px;
-    }
-#container {
-      overflow: auto;
-    }
-
-           #map {
-               position: fixed;
-            left: 0px;
-            top:0px;
-               right: 0px;
-            bottom:0px;
-            width:100%;
+    <link rel="import" href="resources/paper-tabs/paper-tabs.html">
+    <link rel="import" href="resources/core-item/core-item.html">
+    <link rel="import" href="resources/core-animated-pages/core-animated-pages.html">
+    <link rel="import" href="resources/core-pages/core-pages.html">
+    <link rel="import" href="resources/core-animation/core-animation.html">
+    <link rel="import" href="resources/paper-button/paper-button-base.html">
+    <link rel="import" href="resources/paper-button/paper-button.html">
+    <link rel="import" href="resources/core-scaffold/core-scaffold.html">
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="import" href="resources/core-scroll-header-panel/demos/sample-content.html">
+    <style>
+        html,
+        body {
+            font-family: 'Roboto', 'RobotoDraft', 'Helvetica Neue', Helvetica, Arial;
+            font-size: 1em;
+            margin: 0;
+            padding: 0;
             height: 100%;
-               z-index: 0;
+            color: #333;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
         }
-       
-        .ui-button { 
-            display:block;
+        paper-tabs,
+        core-toolbar {
+            background-color: #00aeef;
+            font-size: 1.2em;
+            color: #fff;
+            box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+        }
+        core-toolbar paper-tabs {
+            box-shadow: none;
+        }
+        h3 {
+            font-size: 1em;
+            font-weight: 400;
+        }
+        core-scroll-header-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 100%;
+        }
+        /* background for toolbar when it is at its full size */
+        core-scroll-header-panel::shadow #headerBg {
+            background-image: url('./img/bg9.jpg');
+            background-color: #2980b9;
+        }
+        /* background for toolbar when it is condensed */
+        core-scroll-header-panel::shadow #condensedHeaderBg {
+            background-color: #2980b9;
+        }
+        core-toolbar {
+            color: #f1f1f1;
+            fill: #f1f1f1;
+            background-color: transparent;
+        }
+        .title {
+            -webkit-transform-origin: 0;
+            transform-origin: 0;
+            font-size: 40px;
+        }
+        #container {
+            overflow: auto;
+        }
+        #map {
             position: fixed;
-            bottom:10%px;
-            right:10%;
-            width:160px;
-            margin:-20px 0 0 -80px;
-            z-index:100;
-            text-align:center;
+            left: 0px;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .ui-button {
+            display: block;
+            position: fixed;
+            bottom: 10%px;
+            right: 10%;
+            width: 160px;
+            margin: -20px 0 0 -80px;
+            z-index: 100;
+            text-align: center;
             margin: 8px;
-      background-color: tomato;
+            background-color: tomato;
             color: #eee;
-      border-radius: 4px;
-      cursor: default;
+            border-radius: 4px;
+            cursor: default;
         }
+        .view {
+            font-size: 250px;
+            background-color: tomato;
+        }
+        .venue-blocks {
+            text-align: center;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+        }
+        core-scaffold {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+        .content {
+            background-color: #fff;
+            height: 5000px;
+            padding: 20px;
+        }
+        /* some default styles for mode="cover" on core-scaffold */
+        core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
+            left: 120px;
+        }
+        core-scaffold[mode=cover] .content {
+            margin: 20px 100px 20px 0;
+        }
+    </style>
 
-         
-    .view {
-      font-size: 250px;
-      background-color: tomato;
-    }
-     .venue-blocks {
-        
-            text-align: center;    
-         top: 0px;
-         bottom: 0px;
-         left: 0px;
-         right: 0px;  
-     
-        }
-    core-scaffold {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-    }
-    
-    .content {
-      background-color: #fff;
-      height: 5000px;
-      padding: 20px;
-    }
-    
-    /* some default styles for mode="cover" on core-scaffold */
-    core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
-      left: 120px;
-    }
-    
-    core-scaffold[mode=cover] .content {
-      margin: 20px 100px 20px 0;
-    }
-    
-  </style>
-  
 </head>
 
 <body unresolved>
-<core-scroll-header-panel condenses>
+    <polymer-element name="venue-grid">
+        <template>
 
-    <core-toolbar class="tall" flex navigation>
-           
-     
-     <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit">
-                    <paper-tab id="paper-tab-1" active class="core-selected">MAP</paper-tab>
-                    <paper-tab id="paper-tab-2">
-                        BROWSE</paper-tab>
-                    <paper-tab id="paper-tab-3">
-                        DEALS</paper-tab>
-                </paper-tabs>
-      
-                
-            </core-toolbar>
+            <style>
+                .chip {
+                    display: inline-block;
+                    border-radius: 3px;
+                    margin: 4px;
+                    overflow: hidden;
+                    text-align: start;
+                    background-color: #fff;
+                    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+                }
+                .chip-top {
+                    width: 150px;
+                    height: 150px;
+                }
+                .chip-bottom {
+                    padding: 8px;
+                    line-height: 1.5;
+                }
+                .chip-venue-name {
+                    font-weight: bold;
+                }
+                #details {
+                    padding: 200px 10% 0;
+                }
+                .card {
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0px;
+                    bottom: 0px;
+                    left: 0px;
+                    right: 0px;
+                    border-radius: 3px;
+                    text-align: start;
+                    overflow: hidden;
+                    background: #fff;
+                    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    margin: auto;
+                    z-index: 1000;
+                }
+                .card-left {
+                    width: 10%;
+                }
+                .card-right {
+                    padding: 5px;
+                }
+                .card-venue-title {
+                    font-size: 1em;
+                }
+                .card-venue-category {
+                    font-size: 0.6em;
+                }
+                .card-venue-info {
+                    font-size: 0.5em;
+                }
+            </style>
 
-     
+            <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}" class="venue-blocks">
+
+                <section>
+
+                    <div hero-p on-tap="{{transition}}">
+
+                        <template repeat="{{items as item}}">
+
+                            <div class="chip" hero-id="{{item.category}}-{{item.venue}}" hero?="{{selectedVenue === item }}">
+                                <div class="chip-top" style="background:{{item.color}};" hero-id="{{item.category}}-{{item.venue}}-art" hero?="{{selectedVenue === item}}"></div>
+                                <div class="chip-bottom">
+                                    <div class="chip-venue-name">{{item.venue}}</div>
+                                    <div class="chip-category">{{item.category}}</div>
+                                </div>
+                            </div>
+
+                        </template>
+
+                    </div>
+                </section>
+
+                <section id="details">
+
+                    <div class="card" horizontal layout hero-id="{{selectedVenue.category}}-{{selectedVenue.venue}}" hero on-tap="{{transition}}">
+                        <div class="card-left" style="background:{{selectedVenue.color}};" hero-id="{{selectedVenue.category}}-{{selectedVenue.venue}}-art" hero></div>
+                        <div class="card-right" flex>
+
+
+                            <div flex layout vertical>
+                                <div class="card-venue-title">{{selectedVenue.venue}}</div>
+                                <div class="card-venue-category">{{selectedVenue.category}}</div>
+                                <div class="card-venue-info">{{selectedVenue.info}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+            </core-animated-pages>
+
+        </template>
+        <script>
+            Polymer('venue-deals', {
+
+                    page: 0,
+
+                    items: [
+                        {
+                            category: 'Pub',
+                            venue: 'Bull Feenys',
+                            color: '#f4db33',
+                            info: 'lorem ipsum'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Past Prologue',
+                            color: '#972ff8'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Spectre',
+                            color: '#7dd6fe'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Awake',
+                            color: '#dc3c84'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Awake',
+                            color: '#dc3c84'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Awake',
+                            color: '#dc3c84'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Awake',
+                            color: '#dc3c84'
+          },
+                        {
+                            category: 'Tycho',
+                            venue: 'Awake',
+                            color: '#dc3c84'
+          }
+      ],
+        </script>
+    </polymer-element>
+    <polymer-element name="venue-deals">
+        <template>
+
+            <style>
+                .chip {
+                    display: inline-block;
+                    border-radius: 3px;
+                    margin: 4px;
+                    overflow: hidden;
+                    text-align: start;
+                    background-color: #fff;
+                    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+                }
+                .chip-top {
+                    width: 150px;
+                    height: 150px;
+                }
+                .chip-bottom {
+                    padding: 8px;
+                    line-height: 1.5;
+                }
+                .chip-venue-name {
+                    font-weight: bold;
+                }
+                #details {
+                    padding: 200px 10% 0;
+                }
+                .card {
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0px;
+                    bottom: 0px;
+                    left: 0px;
+                    right: 0px;
+                    border-radius: 3px;
+                    text-align: start;
+                    overflow: hidden;
+                    background: #fff;
+                    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    margin: auto;
+                    z-index: 1000;
+                }
+                .card-left {
+                    width: 10%;
+                }
+                .card-right {
+                    padding: 5px;
+                }
+                .card-venue-title {
+                    font-size: 1em;
+                }
+                .card-venue-category {
+                    font-size: 0.6em;
+                }
+                .card-venue-info {
+                    font-size: 0.5em;
+                }
+            </style>
+
+            <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}" class="venue-blocks">
+
+                <section>
+
+                    <div hero-p on-tap="{{transition}}">
+
+                        <template repeat="{{items as item}}">
+
+                            <div class="chip" hero-id="{{item.category}}-{{item.venue}}" hero?="{{selectedVenue === item }}">
+                                <div class="chip-top" style="background:{{item.color}};" hero-id="{{item.category}}-{{item.venue}}-art" hero?="{{selectedVenue === item}}"></div>
+                                <div class="chip-bottom">
+                                    <div class="chip-venue-name">{{item.venue}}</div>
+                                    <div class="chip-category">{{item.category}}</div>
+                                </div>
+                            </div>
+
+                        </template>
+
+                    </div>
+                </section>
+
+                <section id="details">
+
+                    <div class="card" horizontal layout hero-id="{{selectedVenue.category}}-{{selectedVenue.venue}}" hero on-tap="{{transition}}">
+                        <div class="card-left" style="background:{{selectedVenue.color}};" hero-id="{{selectedVenue.category}}-{{selectedVenue.venue}}-art" hero></div>
+                        <div class="card-right" flex>
+
+
+                            <div flex layout vertical>
+                                <div class="card-venue-title">{{selectedVenue.venue}}</div>
+                                <div class="card-venue-category">{{selectedVenue.category}}</div>
+                                <div class="card-venue-info">{{selectedVenue.info}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+            </core-animated-pages>
+
+        </template>
+        <script>
+            Polymer('venue-deals', {
+
+                page: 0,
+
+                items: [
+                    {
+                        category: 'Pub',
+                        venue: 'Bull Feenys',
+                        color: '#f4db33',
+                        info: 'lorem ipsum'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Past Prologue',
+                        color: '#972ff8'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Spectre',
+                        color: '#7dd6fe'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
+          },
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
+          }
+      ],
+
+                selectedVenue: null,
+
+                transition: function (e) {
+                    if (this.page === 0 && e.target.templateInstance.model.item) {
+                        this.selectedVenue = e.target.templateInstance.model.item;
+                        this.page = 1;
+                    } else {
+                        this.page = 0;
+                    }
+                }
+            });
+        </script>
+    </polymer-element>
+
+    <core-scroll-header-panel condenses>
+
+        <core-toolbar flex navigation>
+
+
+            <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit core-header">
+                <paper-tab id="paper-tab-1" active class="core-selected">Map</paper-tab>
+                <paper-tab id="paper-tab-2">
+                    Browse</paper-tab>
+                <paper-tab id="paper-tab-3">
+                    Deals</paper-tab>
+            </paper-tabs>
+
+
+        </core-toolbar>
+        <div content class="top-buffer" class="onehun">
+            <!-- pages -->
+
+
+
+            <core-animated-pages transitions="cross-fade" selected="0" class="onehun">
+                <!--map-->
+                <section id="paper-tab-1" active flex class="onehun">
+                    <div cross-fade class="onehun">
+                        <div id="bottom1" flex class="onehun">
+
+                            <paper-button raised href='#' id='geolocate' class='btn btn-primary ui-button'>Show my location</paper-button>
+                            <div id='map'>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!--/map-->
+                <!-- Browse -->
+                <section id="paper-tab-2" flex class="onehun">
+                    <div layout horizontal center cross-fade class="onehun">
+                        <div id="bottom1" layout horizontal center class="venue-blocks">
+                            <venue-grid class="onehun"></venue-grid>
+                        </div>
+                    </div>
+                </section>
+                <!--/Browse-->
+                <!--deals -->
+                <section id="paper-tab-3">
+                    <div layout horizontal center center-justified cross-fade>
+                        <div layout horizontal center cross-fade class="onehun">
+                            <div id="bottom1" layout horizontal center class="venue-blocks">
+                                <venue-deals class="onehun"></venue-deals>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+                <!--/deals-->
+            </core-animated-pages>
+        </div>
     </core-scroll-header-panel>
-    
-    <div tool>Title</div>
-    
-    <div class="content">Content goes here...</div>
-  
-  
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+
+    <script>
+        var tabs = document.querySelector('paper-tabs');
+        var pages = document.querySelector('core-animated-pages');
+        tabs.addEventListener('core-select', function () {
+            console.log("Selected: " + tabs.selected);
+            pages.selected = tabs.selected;
+        });
+    </script>
+    <script>
+        function toggleDialog(transition) {
+            var dialog = document.querySelector('paper-dialog[transition=' + transition + ']');
+            dialog.toggle();
+        }
+    </script>
+    <script>
+        // custom transformation: scale header's title
+        var titleStyle = document.querySelector('.title').style;
+        addEventListener('core-header-transform', function (e) {
+            var d = e.detail;
+            var m = d.height - d.condensedHeight;
+            var scale = Math.max(0.75, (m - d.y) / (m / 0.25) + 0.75);
+            titleStyle.transform = titleStyle.webkitTransform =
+                'scale(' + scale + ') translateZ(0)';
+        });
+    </script>
+    <script>
+        addEventListener('template-bound', function (e) {
+            var scope = e.target;
+            var items = [],
+                count = 50;
+            for (var i = 0; i < count; i++) {
+                items.push(i);
+            }
+
+            scope.items = items;
+
+            scope.selectView = function (e) {
+                var i = e.target.templateInstance.model.item;
+                this.$.pages.selected = i + 1;
+            }
+
+            scope.back = function () {
+                this.lastSelected = this.$.pages.selected;
+                console.log(this.lastSelected);
+                this.$.pages.selected = 0;
+            }
+
+            scope.transitionend = function () {
+                if (this.lastSelected) {
+                    this.lastSelected = null;
+                }
+            }
+        })
+
+         L.mapbox.accessToken = 'pk.eyJ1IjoidGhlYmVkaXZlcmUiLCJhIjoiZjJ0RzZrUSJ9.6eOjCS4T0J4cL9g2FhUYcQ';
+        var geolocate = document.getElementById('geolocate');
+        var map = L.mapbox.map('map', 'thebedivere.jof32cnp', {
+            zoomControl: false
+        }).setView([43.661471, -70.255326], 14);
+         // Credit Foursquare for their wonderful data
+        map.attributionControl.setPosition('bottomleft');
+        map.attributionControl.addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
+        var myLayer = L.mapbox.featureLayer().addTo(map);
+        var layers = document.getElementById('menu-ui');
+        var venueAPI = 'https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?oauth_token=NJZESUCEVA5ZWYFK5ZJEMINIRK2XWTF34DTS2J2TY2GU44TE&v=20141022';
+        var places = L.mapbox.featureLayer().addTo(map);
+        $.getJSON(venueAPI, function (data) {
+            var arr = [];
+            var venuearr = [];
+            $('#content').empty();
+            console.log(data);
+            b = '<br/>';
+            arr = data.response.list.listItems;
+            venuearr = arr.items;
+            venuearrlength = arr.items.length;
+            console.log(venuearr);
+            console.log(venuearrlength);
+            for (var i = 0; i < venuearrlength; i++) {
+                var venue = venuearr[i].venue;
+                var type = venuearr[i].venue.categories[0].name;
+                latlng = L.latLng(venue.location.lat, venue.location.lng);
+                if (type === 'Pub') {
+                    var marker = L.marker(latlng, {
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#d35400',
+                            'marker-size': 'large',
+                            'marker-symbol': 'beer'
+                        })
+                    }).bindPopup('<strong><button data-toggle="modal" data-target="#myModal" id="beer" onclick="getinfo("https://api.foursquare.com/v2/venues/' + venue.id + '?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");">' + venue.name + '</button></strong>').addTo(places);
+                }
+                if (type === 'Coffee Shop') {
+                    var marker = L.marker(latlng, {
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#804115',
+                            'marker-size': 'large',
+                            'marker-symbol': 'cafe'
+                        })
+                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                }
+                if (type === 'Thrift / Vintage Store') {
+                    var marker = L.marker(latlng, {
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#3498db',
+                            'marker-size': 'large',
+                            'marker-symbol': 'shop'
+                        })
+                    }).bindPopup('<button class="btn btn-success btn-block btn-lg" data-toggle="modal" data-target="#myModal" id="bullFeenys" onclick="getinfo("https://api.foursquare.com/v2/venues/466428cef964a5207b471fe3?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");" id="bottom1">Bull Feenys</button><strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                }
+                if (type === 'Design Studio') {
+                    var marker = L.marker(latlng, {
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#e74c3c',
+                            'marker-size': 'large',
+                            'marker-symbol': 'art-gallery'
+                        })
+                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                }
+                if (type === 'Bakery') {
+                    var marker = L.marker(latlng, {
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#f1c40f',
+                            'marker-size': 'large',
+                            'marker-symbol': 'bakery'
+                        })
+                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                }
+                if (type === 'Music Store') {
+                    var marker = L.marker(latlng, {
+                        icon: L.mapbox.marker.icon({
+                            'marker-color': '#2ecc71',
+                            'marker-size': 'large',
+                            'marker-symbol': 'music'
+                        })
+                    }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
+                }
+            }
+        });
+        if (!navigator.geolocation) {
+            geolocate.innerHTML = 'Geolocation is not available';
+        } else {
+            geolocate.onclick = function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                map.locate();
+            };
+        }
+         // Once we've got a position, zoom and center the map
+         // on it, and add a single marker.
+        map.on('locationfound', function (e) {
+            map.fitBounds(e.bounds);
+            myLayer.setGeoJSON({
+                type: 'Feature',
+                geometry: {
+                    type: 'Point',
+                    coordinates: [e.latlng.lng, e.latlng.lat]
+                },
+                properties: {
+                    'title': 'Your current location',
+                    'marker-color': '#ff8888',
+                    'marker-symbol': 'star'
+                }
+            });
+        });
+         // If the user chooses not to allow their location
+         // to be shared, display an error message.
+        map.on('locationerror', function () {
+            geolocate.innerHTML = 'Position could not be found';
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
+        });
+    </script>
+
 </body>
+
 </html>

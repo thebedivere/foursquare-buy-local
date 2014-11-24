@@ -15,6 +15,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <script src="index.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/temp.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="resources/platform/platform.js"></script>
@@ -257,64 +258,21 @@
 
         </template>
         <script>
-            Polymer('venue-grid', {
+            Polymer(
 
-                page: 0,
-
-                items: [
-                    {
-                        category: 'Pub',
-                        venue: 'Bull Feenys',
-                        color: '#f4db33',
-                        info: 'lorem ipsum'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Past Prologue',
-                        color: '#972ff8'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Spectre',
-                        color: '#7dd6fe'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          }
-      ],
-                selectedVenue: null,
-
-                transition: function (e) {
-                    if (this.page === 0 && e.target.templateInstance.model.item) {
-                        this.selectedVenue = e.target.templateInstance.model.item;
-                        this.page = 1;
-                    } else {
-                        this.page = 0;
+                'venue-grid', {
+                    page: 0,
+                    items: [],
+                    selectedVenue: null,
+                    transition: function (e) {
+                        if (this.page === 0 && e.target.templateInstance.model.item) {
+                            this.selectedVenue = e.target.templateInstance.model.item;
+                            this.page = 1;
+                        } else {
+                            this.page = 0;
+                        }
                     }
-                }
-            });
+                });
         </script>
     </polymer-element>
     <polymer-element name="venue-deals">
@@ -715,6 +673,8 @@
     <script>
         $(document).ready(function () {
             getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
+
+
         });
     </script>
 

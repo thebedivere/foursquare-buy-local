@@ -257,53 +257,64 @@
 
         </template>
         <script>
-            Polymer('venue-deals', {
+            Polymer('venue-grid', {
 
-                    page: 0,
+                page: 0,
 
-                    items: [
-                        {
-                            category: 'Pub',
-                            venue: 'Bull Feenys',
-                            color: '#f4db33',
-                            info: 'lorem ipsum'
+                items: [
+                    {
+                        category: 'Pub',
+                        venue: 'Bull Feenys',
+                        color: '#f4db33',
+                        info: 'lorem ipsum'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Past Prologue',
-                            color: '#972ff8'
+                    {
+                        category: 'Tycho',
+                        venue: 'Past Prologue',
+                        color: '#972ff8'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Spectre',
-                            color: '#7dd6fe'
+                    {
+                        category: 'Tycho',
+                        venue: 'Spectre',
+                        color: '#7dd6fe'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           }
       ],
+                selectedVenue: null,
+
+                transition: function (e) {
+                    if (this.page === 0 && e.target.templateInstance.model.item) {
+                        this.selectedVenue = e.target.templateInstance.model.item;
+                        this.page = 1;
+                    } else {
+                        this.page = 0;
+                    }
+                }
+            });
         </script>
     </polymer-element>
     <polymer-element name="venue-deals">

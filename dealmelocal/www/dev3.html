@@ -15,8 +15,6 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <script src="js/temp.js"></script>
-    <script src="js/jquery-2.1.1.min.js"></script>
     <script src="resources/platform/platform.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.css' rel='stylesheet' />
@@ -257,53 +255,64 @@
 
         </template>
         <script>
-            Polymer('venue-deals', {
+            Polymer('venue-grid', {
 
-                    page: 0,
+                page: 0,
 
-                    items: [
-                        {
-                            category: 'Pub',
-                            venue: 'Bull Feenys',
-                            color: '#f4db33',
-                            info: 'lorem ipsum'
+                items: [
+                    {
+                        category: 'Pub',
+                        venue: 'Bull Feenys',
+                        color: '#f4db33',
+                        info: 'lorem ipsum'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Past Prologue',
-                            color: '#972ff8'
+                    {
+                        category: 'Tycho',
+                        venue: 'Past Prologue',
+                        color: '#972ff8'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Spectre',
-                            color: '#7dd6fe'
+                    {
+                        category: 'Tycho',
+                        venue: 'Spectre',
+                        color: '#7dd6fe'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           },
-                        {
-                            category: 'Tycho',
-                            venue: 'Awake',
-                            color: '#dc3c84'
+                    {
+                        category: 'Tycho',
+                        venue: 'Awake',
+                        color: '#dc3c84'
           }
       ],
+                selectedVenue: null,
+
+                transition: function (e) {
+                    if (this.page === 0 && e.target.templateInstance.model.item) {
+                        this.selectedVenue = e.target.templateInstance.model.item;
+                        this.page = 1;
+                    } else {
+                        this.page = 0;
+                    }
+                }
+            });
         </script>
     </polymer-element>
     <polymer-element name="venue-deals">
@@ -546,162 +555,7 @@
             dialog.toggle();
         }
     </script>
- <script>
-    // custom transformation: scale header's title
-    var titleStyle = document.querySelector('.title').style;
-    addEventListener('core-header-transform', function (e) {
-        var d = e.detail;
-        var m = d.height - d.condensedHeight;
-        var scale = Math.max(0.75, (m - d.y) / (m / 0.25) + 0.75);
-        titleStyle.transform = titleStyle.webkitTransform =
-            'scale(' + scale + ') translateZ(0)';
-    });
-</script>
-<script>
-    addEventListener('template-bound', function (e) {
-        var scope = e.target;
-        var items = [],
-            count = 50;
-        for (var i = 0; i < count; i++) {
-            items.push(i);
-        }
 
-        scope.items = items;
-
-        scope.selectView = function (e) {
-            var i = e.target.templateInstance.model.item;
-            this.$.pages.selected = i + 1;
-        }
-
-        scope.back = function () {
-            this.lastSelected = this.$.pages.selected;
-            console.log(this.lastSelected);
-            this.$.pages.selected = 0;
-        }
-
-        scope.transitionend = function () {
-            if (this.lastSelected) {
-                this.lastSelected = null;
-            }
-        }
-    })
-
-    L.mapbox.accessToken = 'pk.eyJ1IjoidGhlYmVkaXZlcmUiLCJhIjoiZjJ0RzZrUSJ9.6eOjCS4T0J4cL9g2FhUYcQ';
-    var geolocate = document.getElementById('geolocate');
-    var map = L.mapbox.map('map', 'thebedivere.jof32cnp', {
-        zoomControl: false
-    }).setView([43.661471, -70.255326], 14);
-    // Credit Foursquare for their wonderful data
-    map.attributionControl.setPosition('bottomleft');
-    map.attributionControl.addAttribution('<a href="https://foursquare.com/">Places data from Foursquare</a>');
-    var myLayer = L.mapbox.featureLayer().addTo(map);
-    var layers = document.getElementById('menu-ui');
-    var venueAPI = 'https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?oauth_token=NJZESUCEVA5ZWYFK5ZJEMINIRK2XWTF34DTS2J2TY2GU44TE&v=20141022';
-    var places = L.mapbox.featureLayer().addTo(map);
-    $.getJSON(venueAPI, function (data) {
-        var arr = [];
-        var venuearr = [];
-        $('#content').empty();
-        console.log(data);
-        b = '<br/>';
-        arr = data.response.list.listItems;
-        venuearr = arr.items;
-        venuearrlength = arr.items.length;
-        console.log(venuearr);
-        console.log(venuearrlength);
-        for (var i = 0; i < venuearrlength; i++) {
-            var venue = venuearr[i].venue;
-            var type = venuearr[i].venue.categories[0].name;
-            latlng = L.latLng(venue.location.lat, venue.location.lng);
-            if (type === 'Pub') {
-                var marker = L.marker(latlng, {
-                    icon: L.mapbox.marker.icon({
-                        'marker-color': '#d35400',
-                        'marker-size': 'large',
-                        'marker-symbol': 'beer'
-                    })
-                }).bindPopup('<strong><button data-toggle="modal" data-target="#myModal" id="beer" onclick="getinfo("https://api.foursquare.com/v2/venues/' + venue.id + '?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");">' + venue.name + '</button></strong>').addTo(places);
-            }
-            if (type === 'Coffee Shop') {
-                var marker = L.marker(latlng, {
-                    icon: L.mapbox.marker.icon({
-                        'marker-color': '#804115',
-                        'marker-size': 'large',
-                        'marker-symbol': 'cafe'
-                    })
-                }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-            }
-            if (type === 'Thrift / Vintage Store') {
-                var marker = L.marker(latlng, {
-                    icon: L.mapbox.marker.icon({
-                        'marker-color': '#3498db',
-                        'marker-size': 'large',
-                        'marker-symbol': 'shop'
-                    })
-                }).bindPopup('<button class="btn btn-success btn-block btn-lg" data-toggle="modal" data-target="#myModal" id="bullFeenys" onclick="getinfo("https://api.foursquare.com/v2/venues/466428cef964a5207b471fe3?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&v=20141012");" id="bottom1">Bull Feenys</button><strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-            }
-            if (type === 'Design Studio') {
-                var marker = L.marker(latlng, {
-                    icon: L.mapbox.marker.icon({
-                        'marker-color': '#e74c3c',
-                        'marker-size': 'large',
-                        'marker-symbol': 'art-gallery'
-                    })
-                }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-            }
-            if (type === 'Bakery') {
-                var marker = L.marker(latlng, {
-                    icon: L.mapbox.marker.icon({
-                        'marker-color': '#f1c40f',
-                        'marker-size': 'large',
-                        'marker-symbol': 'bakery'
-                    })
-                }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-            }
-            if (type === 'Music Store') {
-                var marker = L.marker(latlng, {
-                    icon: L.mapbox.marker.icon({
-                        'marker-color': '#2ecc71',
-                        'marker-size': 'large',
-                        'marker-symbol': 'music'
-                    })
-                }).bindPopup('<strong><a href="https://foursquare.com/v/' + venue.id + '">' + venue.name + '</a></strong>').addTo(places);
-            }
-        }
-    });
-    if (!navigator.geolocation) {
-        geolocate.innerHTML = 'Geolocation is not available';
-    } else {
-        geolocate.onclick = function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            map.locate();
-        };
-    }
-    // Once we've got a position, zoom and center the map
-    // on it, and add a single marker.
-    map.on('locationfound', function (e) {
-        map.fitBounds(e.bounds);
-        myLayer.setGeoJSON({
-            type: 'Feature',
-            geometry: {
-                type: 'Point',
-                coordinates: [e.latlng.lng, e.latlng.lat]
-            },
-            properties: {
-                'title': 'Your current location',
-                'marker-color': '#ff8888',
-                'marker-symbol': 'star'
-            }
-        });
-    });
-    // If the user chooses not to allow their location
-    // to be shared, display an error message.
-    map.on('locationerror', function () {
-        geolocate.innerHTML = 'Position could not be found';
-    });
-
-    </script>
 
 </body>
 

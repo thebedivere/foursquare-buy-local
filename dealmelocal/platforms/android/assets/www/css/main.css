@@ -1,20 +1,20 @@
 .received {
     display: none;
 }
-html, body {
+html,
+body {
     height: 100%;
     transition: opacity ease-in 0.2s;
-    font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
-        font-size: 1em;
-      margin: 0;
-      padding:0;
-      color: #333;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      -webkit-touch-callout: none;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
 }
 body[unresolved] {
     opacity: 0;
@@ -23,11 +23,9 @@ body[unresolved] {
     position: relative;
     height: 100%;
 }
-
 .top-buffer {
-    margin-top:30px;
+    margin-top: 30px;
 }
-
 .bg1 {
     background: url('beerjpg.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -44,8 +42,6 @@ body[unresolved] {
 .img-container img {
     width: 100%;
 }
-
-
 }
 core-header-panel {
     height: 100%;
@@ -58,7 +54,7 @@ core-header {
 }
 paper-tabs {
     background-color: #ecf0f1;
-    color: #2980b9;
+    color: #2196f3;
     margin: 0px;
     padding: 0px;
 }
@@ -81,7 +77,6 @@ paper-tabs {
     cursor: default;
     pointer-events: none;
 }
-
 :host(:not(.core-selected)) .tab-content {
     opacity: 0.6;
 }
@@ -91,7 +86,7 @@ paper-tabs {
     right: 0;
     bottom: 0;
     left: 0;
-    color: #2980b9;
+    color: #2196f3;
 }
 :host[noink] #ink {
     pointer-events: none;
@@ -99,18 +94,16 @@ paper-tabs {
 :host-context(paper-tabs[noink]) #ink {
     pointer-events: none;
 }
-
 #foursquareLogo {
     padding: 15px;
     margin: auto;
 }
 core-toolbar {
     background-color: #ecf0f1;
-    color: #2980b9;
+    color: #2196f3;
 }
-
 paper-tab::shadow #ink {
-    color: #2980b9;
+    color: #2196f3;
 }
 drop-down.margin::shadow core-dropdown {
     margin: 12px;
@@ -128,9 +121,8 @@ drop-down.constrained::shadow core-dropdown {
 }
 .mapContainer {
     height: 100%;
-    width:100%; 
+    width: 100%;
 }
-
 #map {
     position: fixed;
     height: 100%;
@@ -142,104 +134,89 @@ drop-down.constrained::shadow core-dropdown {
     min-height: 500px;
     margin: auto;
 }
-
-
 #paper-tab-1 {
     height: 100%
 }
-
-        #hero1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 300px;
-            height: 300px;
-            background-color: orange;
-        }
-        #hero2 {
-            position: absolute;
-            top: 200px;
-            left: 300px;
-            width: 300px;
-            height: 300px;
-            background-color: orange;
-        }
-        #bottom1, #bottom2 {
-            position: absolute;
-            bottom: 0;
-            top: 0;
-            left: 0;
-            height: 50px;
-            
-        }
+#hero1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background-color: orange;
+}
+#hero2 {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    width: 300px;
+    height: 300px;
+    background-color: orange;
+}
+#bottom1,
+#bottom2 {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    height: 50px;
+}
 #specialCard {
     background: #ecf0f1;
     margin: 5px;
     padding: 10px;
     border-radius: 4px;
-    
 }
-
 #venueList {
     margin: 5px;
     padding: 10px;
     height: 100%;
     width: 100%;
 }
-
-
-        .ui-button { 
-            display:block;
-            position:absolute;
-            bottom:40px;
-            right:10px;
-            width:160px;
-            margin:-20px 0 0 -80px;
-            z-index:100;
-            text-align:center;
-        }
-       
-
-
- #container {
-      overflow: auto;
-    }
-
-    .card {
-      position: relative;
-      height: 150px;
-      width: 150px;
-      font-size: 50px;
-      margin: 8px;
-      background-color: tomato;
-      border-radius: 4px;
-      cursor: default;
-    }
-
-    .view {
-      font-size: 250px;
-      background-color: tomato;
-    }
-
-        #map {
-            position:absolute;
-            top:0;
-            bottom:0;
-            width:100%;
-            height: 100%;
-        }
-
+.ui-button {
+    display: block;
+    position: absolute;
+    bottom: 40px;
+    right: 10px;
+    width: 160px;
+    margin: -20px 0 0 -80px;
+    z-index: 100;
+    text-align: center;
+}
+#container {
+    overflow: auto;
+}
+.card {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    font-size: 50px;
+    margin: 8px;
+    background-color: #E91E63;
+    border-radius: 4px;
+    cursor: default;
+}
+.view {
+    font-size: 250px;
+    background-color: #E91E63;
+}
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
 .backdrop {
     max-height: 100%;
     max-width: 100%;
-    min-width:  100%;
-        min-height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
-
 .onehun {
-        max-height: 100%;
+    max-height: 100%;
     max-width: 100%;
-    min-width:  100%;
-        min-height: 100%;
+    min-width: 100%;
+    min-height: 100%;
 }
 }

@@ -1,13 +1,23 @@
 {
-     "name": "DealMeLocal",
-     "version": "0.0.1",
-     "devDependencies": {
-          "grunt": "~0.4.5",
-          "grunt-contrib-jshint": "~0.10.0",
-          "grunt-contrib-nodeunit": "~0.4.1",
-          "grunt-contrib-uglify": "~0.5.0",
-          "grunt-contrib-clean": "^0.6.0",
-          "grunt-vulcanize": "~0"
-     },
-     "engine": "node 0.4.1"
+  "name": "DealMeLocal",
+  "version": "0.0.1",
+  "dependencies": {
+    "csslint": "~0.10.0",
+    "chalk": "~0.5.1",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-csslint": "^0.3.1",
+    "grunt-contrib-internal": "~0.4.2",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-csscss": "^0.6.2",
+    "grunt-html-validation": "~0.1.18",
+    "grunt-uncss": "^0.3.7",
+    "grunt-vulcanize": "~0"
+  },
+  "engine": "node 0.4.1"
 }

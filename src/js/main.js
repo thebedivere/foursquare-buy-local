@@ -15,7 +15,7 @@ function app(info) {
 }
 
 function getinfo(venueAPI) {
-    $.getJSON(venueAPI, function(data) {
+    $.getJSON(venueAPI, function (data) {
         var arr = [];
         var photoarr = [];
         arr = data.response.venue;
@@ -24,21 +24,21 @@ function getinfo(venueAPI) {
         b = '<br/>';
         app('<h1>' + arr.name + '</h1><p>');
         var catArr = arr.categories;
-        for(var y = 0; y < catArr.length; y++) {
+        for (var y = 0; y < catArr.length; y++) {
             app(catArr[y].shortName + ' ');
         }
         app(b);
         app('<a href="tel:' + arr.contact.formattedPhone + '">' + arr.contact.formattedPhone + '</a>' + b);
         app(arr.location.formattedAddress + b);
         app('<a href="www.twitter.com/' + arr.contact.twitter + '">Twitter</a>' + b);
-        if(arr.hasMenu === true) {
+        if (arr.hasMenu === true) {
             app('<a href="' + arr.menu.mobileUrl + '">View Menu Online</a></p>' + b);
         } else {
             app('No menu available online' + b);
         }
         photoarr = arr.photos.groups[0].items;
 
-        for(var c = 0; c < photoarr.length; c++) {
+        for (var c = 0; c < photoarr.length; c++) {
             $('#content').append('<div class="img-container"><a href="#" class="thumbnail"><img src="' + photoarr[c].prefix + photoarr[c].width + 'x' + photoarr[c].height + photoarr[c].suffix + '"></a></div>');
         }
     });
@@ -55,7 +55,7 @@ function appV(infoV) {
 }
 
 function getList(venueAPIl) {
-    $.getJSON(venueAPIl, function(datal) {
+    $.getJSON(venueAPIl, function (datal) {
         var venueINFO = 'https:\/\/api.foursquare.com\/v2\/venues\/VENUE_ID?oauth_token=YCCKUVRO4J4MZQ121E4VTNHBRM4YH0FAVROW0KQ2OSJ32GRV&amp;v=20141012';
         var arrl = [];
         var venuearrl = [];
@@ -65,12 +65,12 @@ function getList(venueAPIl) {
         arrl = datal.response.list.listItems;
         venuearrl = arrl.items;
 
-        for(var x = 0; x < venuearrl.length; x++) {
-            if(venuearrl[x].venue.specials.count > 0) {
+        for (var x = 0; x < venuearrl.length; x++) {
+            if (venuearrl[x].venue.specials.count > 0) {
                 appS('<div id="specialCard" class="card"><p>' + venuearrl[x].venue.name + b + venuearrl[x].venue.specials.items[0].message + '</p><paper-shadow z="1"></paper-shadow></div>');
             }
         }
-        for(var z = 0; z < venuearrl.length; z++) {
+        for (var z = 0; z < venuearrl.length; z++) {
             appV(' <div layout horizontal center center-justified cross-fade class="button-list">');
             var venueINF = venueINFO.replace('VENUE_ID', venuearrl[z].venue.id)
             var venueDecoded = venueINF.replace(/&amp;/g, '&');

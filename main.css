@@ -40,33 +40,14 @@ core-scroll-header-panel {
 core-scroll-header-panel::shadow #headerBg {
   background: url(/dealmelocal/www/img/bg9.jpg) #2196f3;
 }
-paper-tabs,
-core-toolbar {
-  background-color: #2196f3;
-  font-size: 1.2em;
-  font-family: 'Roboto Slab', serif;
-  color: #fff;
-  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-}
-.view {
-  font-size: 250px;
-  background-color: #7dd6fe;
-}
-.content {
-  background-color: #fff;
-  height: 5000px;
-  padding: 20px;
-}
-/* some default styles for mode="cover" on core-scaffold */
-core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
-  left: 120px;
-}
-core-scaffold[mode=cover] .content {
-  margin: 20px 100px 20px 0;
-}
 /* background for toolbar when it is condensed */
 core-scroll-header-panel::shadow #condensedHeaderBg {
   background: #2196f3;
+}
+core-toolbar {
+  color: #f1f1f1;
+  fill: #f1f1f1;
+  background-color: #90caf9;
 }
 .title {
   -webkit-transform-origin: 0;
@@ -89,20 +70,7 @@ core-scroll-header-panel::shadow #condensedHeaderBg {
   color: #eee;
   text-align: center;
   cursor: default;
-  background: #4caf50;
-}
-.search {
-  position: fixed;
-  bottom: 5%;
-  left: 5%;
-  z-index: 100;
-  display: block;
-  margin: -20px 0 0 -80px;
-  margin: 8px;
-  color: #eee;
-  text-align: center;
-  cursor: default;
-  background: #4caf50;
+  background: #7dd6fe;
 }
 .view {
   font-size: 250px;
@@ -168,6 +136,12 @@ core-header-panel {
 }
 core-header {
   width: 100%;
+}
+paper-tabs {
+  color: #2196f3;
+  margin: 0;
+  padding: 0;
+  background: #ecf0f1;
 }
 :host {
   display: block;
@@ -303,15 +277,10 @@ drop-down.constrained::shadow core-dropdown {
   min-height: 100%;
 }
 #searchBar {
-  background: #90caf9;
-  margin-bottom: 10px;
+  background: #008000;
 }
 .secondary-text {
   color: rgba(255, 255, 255, 0.5);
   font-family: "Roboto Draft", "Roboto", sans-serif;
   font-style: italic;
-}
-paper-toast {
-  right: 10px;
-  left: auto;
 }

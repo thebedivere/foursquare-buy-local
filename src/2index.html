@@ -80,20 +80,20 @@
                 <section id="paper-tab-2">
                     <div layout horizontal center center-justified cross-fade class="button-list">
 
-                    <div id="venueList">
-                            </div>
-</div>
+                        <div id="venueList">
+                        </div>
+                    </div>
                     <!--/food and drink-->
                 </section>
 
                 <!--specials-->
                 <section id="paper-tab-3">
                     <div layout horizontal center center-justified cross-fade class="button-list">
-                        <div  id="bottom1">
-                        <div id="specials">
+                        <div id="bottom1">
+                            <div id="specials">
 
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </section>
                 <!--/specials-->
@@ -130,7 +130,7 @@
             <script>
                 var tabs = document.querySelector('paper-tabs');
                 var pages = document.querySelector('core-animated-pages');
-                tabs.addEventListener('core-select', function() {
+                tabs.addEventListener('core-select', function () {
                     console.log("Selected: " + tabs.selected);
                     pages.selected = tabs.selected;
                 });
@@ -159,8 +159,9 @@
             </div>
         </div>
         <script>
-               $(document).ready(function() { getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
-              });
+            $(document).ready(function () {
+                getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
+            });
         </script>
 
     </core-scroll-header-panel>
@@ -168,7 +169,7 @@
     <body unresovled>
         <script language="javascript" type="text/javascript">
             // this is a loading screen to hide the page until all elements are ready //
-            $(window).load(function() {
+            $(window).load(function () {
                 $('#loading').hide();
             });
         </script>

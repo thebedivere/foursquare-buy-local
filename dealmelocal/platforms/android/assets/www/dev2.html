@@ -2,22 +2,21 @@
 <html>
 
 <head>
+    <TITLE>Deal Me Local</TITLE>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <meta name="mobile-web-app-capable" content="yes">
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="format-detection" content="email=no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="index.js"></script>
     <script src="js/main.js"></script>
     <script src="js/temp.js"></script>
-    <script src="js/foursquare.js"></script>
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="resources/platform/platform.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.2/mapbox.js'></script>
@@ -32,126 +31,13 @@
     <link rel="import" href="resources/paper-button/paper-button-base.html">
     <link rel="import" href="resources/paper-button/paper-button.html">
     <link rel="import" href="resources/core-scaffold/core-scaffold.html">
+    <link rel="import" href="resources/paper-fab/paper-fab.html">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <link rel="import" href="resources/core-scroll-header-panel/demos/sample-content.html">
+    <link rel="import" href="resources/core-icons/core-icons.html">
+    <link rel="import" href="resources/paper-toast/paper-toast.html">
     <style>
-        html,
-        body {
-            font-family: 'RobotoDraft', 'Helvetica Neue', Helvetica, Arial;
-            font-size: 1em;
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            color: #333;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-            -webkit-touch-callout: none;
-        }
-        paper-tabs,
-        core-toolbar {
-            background-color: #00aeef;
-            font-size: 1.2em;
-            color: #fff;
-            box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
-        }
-        core-toolbar paper-tabs {
-            box-shadow: none;
-        }
-        h3 {
-            font-size: 1em;
-            font-weight: 400;
-        }
-        core-scroll-header-panel {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            height: 100%;
-        }
-        /* background for toolbar when it is at its full size */
-        core-scroll-header-panel::shadow #headerBg {
-            background-image: url('./img/bg9.jpg');
-            background-color: #2196f3;
-        }
-        /* background for toolbar when it is condensed */
-        core-scroll-header-panel::shadow #condensedHeaderBg {
-            background-color: #2196f3;
-        }
-        core-toolbar {
-            color: #f1f1f1;
-            fill: #f1f1f1;
-            background-color: transparent;
-        }
-        .title {
-            -webkit-transform-origin: 0;
-            transform-origin: 0;
-            font-size: 40px;
-        }
-        #container {
-            overflow: auto;
-        }
-        #map {
-            position: fixed;
-            left: 0px;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        .ui-button {
-            display: block;
-            position: fixed;
-            bottom: 10%px;
-            right: 10%;
-            width: 160px;
-            margin: -20px 0 0 -80px;
-            z-index: 100;
-            text-align: center;
-            margin: 8px;
-            background-color: tomato;
-            color: #eee;
-            border-radius: 4px;
-            cursor: default;
-        }
-        .view {
-            font-size: 250px;
-            background-color: tomato;
-        }
-        .venue-blocks {
-            text-align: center;
-            top: 0px;
-            bottom: 0px;
-            left: 0px;
-            right: 0px;
-        }
-        core-scaffold {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-        .content {
-            background-color: #fff;
-            height: 5000px;
-            padding: 20px;
-        }
-        /* some default styles for mode="cover" on core-scaffold */
-        core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
-            left: 120px;
-        }
-        core-scaffold[mode=cover] .content {
-            margin: 20px 100px 20px 0;
-        }
     </style>
-
 </head>
 
 <body unresolved>
@@ -161,7 +47,6 @@
             <style>
                 .chip {
                     display: inline-block;
-                    font-family: 'Roboto Slab', serif;
                     border-radius: 3px;
                     margin: 4px;
                     overflow: hidden;
@@ -176,11 +61,10 @@
                 .chip-bottom {
                     padding: 8px;
                     line-height: 1.5;
-                    font-family: 'Roboto Slab', serif;
                 }
                 .chip-venue-name {
-                    font-family: 'Roboto Slab', serif;
                     font-weight: bold;
+                    font-family: 'Roboto Slab', serif;
                 }
                 #details {
                     padding: 200px 10% 0;
@@ -208,13 +92,11 @@
                     padding: 5px;
                 }
                 .card-venue-title {
-                    font-size: 1em;
+                    font-size: 1.5em;
+                    font-family: 'Roboto Slab', serif;
                 }
-                .card-venue-category {
-                    font-size: 0.6em;
-                }
-                .card-venue-info {
-                    font-size: 0.5em;
+                .info-box {
+                    margin: 1.5em;
                 }
             </style>
 
@@ -246,10 +128,23 @@
                         <div class="card-right" flex>
 
 
-                            <div flex layout vertical>
-                                <div class="card-venue-title">{{selectedVenue.venue}}</div>
-                                <div class="card-venue-category">{{selectedVenue.category}}</div>
-                                <div class="card-venue-info">{{selectedVenue.info}}</div>
+                            <div layout vertical class="info-box">
+                                <div class="card-venue-title">
+                                    <h1>{{selectedVenue.venue}}</h1>
+                                </div>
+                                <div class="card-venue-category">
+                                    <h2>{{selectedVenue.category}}</h2>
+                                </div>
+                                <div class="card-venue-phone"><a href="tel:{{selectedVenue.phone}}">{{selectedVenue.phone}}</a>
+                                </div>
+                                <div class="card-venue-twitter"><a href="twitter.com/{{selectedVenue.twitter}}">{{selectedVenue.twitter}}</a>
+                                </div>
+                                <div class="card-venue-address">{{selectedVenue.address}}</div>
+                                <div class="card-venue-info">
+                                    <p>{{selectedVenue.info}}</p>
+                                </div>
+                                <div class="card-venue-menu">{{selectedVenue.menu}}</div>
+                                <div class="card-venue-photos">{{selectedVenue.photos}}</div>
                             </div>
                         </div>
 
@@ -262,65 +157,29 @@
 
         </template>
         <script>
-            Polymer('venue-grid', {
+            Polymer(
 
-                page: 0,
-
-                items: [
-                    {
-                        category: 'Pub',
-                        venue: 'Bull Feenys',
-                        color: '#f4db33',
-                        info: 'lorem ipsum'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Past Prologue',
-                        color: '#972ff8'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Spectre',
-                        color: '#7dd6fe'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          },
-                    {
-                        category: 'Tycho',
-                        venue: 'Awake',
-                        color: '#dc3c84'
-          }
-      ],
-
-                selectedVenue: null,
-
-                transition: function (e) {
-                    if (this.page === 0 && e.target.templateInstance.model.item) {
-                        this.selectedVenue = e.target.templateInstance.model.item;
-                        this.page = 1;
-                    } else {
-                        this.page = 0;
+                'venue-grid', {
+                    page: 0,
+                    items: [{
+                        'venue': 'josh',
+                        'color': 'red',
+                        'category': 'Pub',
+                        'phone': '207-210-1633',
+                        'address': '123 street, Portland ME 04103',
+                        'twitter': 'thejoshderocher',
+                        'info': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquet malesuada feugiat. Curabitur fermentum bibendum nulla, non dictum ipsum tincidunt non. Quisque convallis pharetra tempor. Donec id pretium leo. Pellentesque luctus massa non elit viverra pellentesque. Cras vitae neque molestie, rhoncus ipsum sit amet, lobortis dui. Fusce in urna sem. Vivamus vehicula dignissim augue et scelerisque. Etiam quam nisi, molestie ac dolor in, tincidunt tincidunt arcu. Praesent sed justo finibus, fringilla velit quis, porta erat. Donec blandit metus ut arcu iaculis iaculis. Cras nec dolor fringilla justo ullamcorper auctor. Aliquam eget pretium velit. Morbi urna justo, pulvinar id lobortis in, aliquet placerat orci.'
+        }],
+                    selectedVenue: null,
+                    transition: function (e) {
+                        if (this.page === 0 && e.target.templateInstance.model.item) {
+                            this.selectedVenue = e.target.templateInstance.model.item;
+                            this.page = 1;
+                        } else {
+                            this.page = 0;
+                        }
                     }
-                }
-            });
+                });
         </script>
     </polymer-element>
     <polymer-element name="venue-deals">
@@ -337,8 +196,8 @@
                     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16);
                 }
                 .chip-top {
-                    width: 150px;
-                    height: 150px;
+                    width: 300px;
+                    height: 25px;
                 }
                 .chip-bottom {
                     padding: 8px;
@@ -374,14 +233,10 @@
                     padding: 5px;
                 }
                 .card-venue-title {
-                    font-size: 1em;
+                    font-family: 'Roboto Slab', serif;
+                    font-size: 1.5rem;
                 }
-                .card-venue-category {
-                    font-size: 0.6em;
-                }
-                .card-venue-info {
-                    font-size: 0.5em;
-                }
+                .card-venue-category {} .card-venue-info {}
             </style>
 
             <core-animated-pages selected="{{page}}" transitions="hero-transition" on-core-animated-pages-transition-end="{{complete}}" class="venue-blocks">
@@ -490,21 +345,19 @@
         </script>
     </polymer-element>
 
-    <core-scroll-header-panel condenses>
-
-        <core-toolbar flex navigation>
+    <core-scroll-header-panel condenses height="48px">
 
 
-            <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit core-header">
-                <paper-tab id="paper-tab-1" active class="core-selected">Map</paper-tab>
-                <paper-tab id="paper-tab-2">
-                    Browse</paper-tab>
-                <paper-tab id="paper-tab-3">
-                    Deals</paper-tab>
-            </paper-tabs>
 
 
-        </core-toolbar>
+        <paper-tabs selected="0" selectedindex="0" id="paper-tabs" roll="tablist" center-justified center horizontal layout class="bottom fit core-header">
+            <paper-tab id="paper-tab-1" active class="core-selected">Map</paper-tab>
+            <paper-tab id="paper-tab-2">
+                Browse</paper-tab>
+            <paper-tab id="paper-tab-3">
+                Deals</paper-tab>
+        </paper-tabs>
+
         <div content class="top-buffer" class="onehun">
             <!-- pages -->
 
@@ -526,9 +379,17 @@
                 <!--/map-->
                 <!-- Browse -->
                 <section id="paper-tab-2" flex class="onehun">
-                    <div layout horizontal center cross-fade class="onehun">
+
+                    <div layout horizontal center cross-fade class="onehun" flex>
+                        <paper-toast text="Coming soon!" onclick="search(el)" id="search-toast"></paper-toast>
+                        <paper-fab icon="search" class="search" onclick="document.querySelector('#search-toast').show()"></paper-fab>
+
+
+
                         <div id="bottom1" layout horizontal center class="venue-blocks">
+
                             <venue-grid class="onehun"></venue-grid>
+
                         </div>
                     </div>
                 </section>
@@ -549,7 +410,11 @@
         </div>
     </core-scroll-header-panel>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-
+    <script>
+        function search(el) {
+            el.show();
+        }
+    </script>
     <script>
         var tabs = document.querySelector('paper-tabs');
         var pages = document.querySelector('core-animated-pages');
@@ -717,6 +582,13 @@
          // to be shared, display an error message.
         map.on('locationerror', function () {
             geolocate.innerHTML = 'Position could not be found';
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            getList('https://api.foursquare.com/v2/lists/54472e14498e9fd02cf2ed7e?client_id=TDHDT5VSXNTNLCZQK0XSHU5HVAMMI5WQDHOVORIMGBHTY5HW&client_secret=2CIFWDRLF1QHB5UUPQEZNHIYIRZTE5IUG2NO34OKEHRQE03X&limit=200&v=20141022');
+
+
         });
     </script>
 

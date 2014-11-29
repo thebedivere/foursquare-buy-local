@@ -35,13 +35,13 @@
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/resources \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/index.html \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/css \
+/home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/dev3.html \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/index.js \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/dev2.html \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/bg9.jpg \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/cordova.js \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/cordova_plugins.js \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/dev1.html \
-/home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/js/foursquare.js \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/js/temp.js \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/js/index.js \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/js/main.js \
@@ -1228,4 +1228,5 @@
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/resources/core-elements/core-elements.html \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/css/main.css \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/css/bg9.jpg \
+/home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/assets/www/css/main.less \
 /home/josh/Documents/Development/project-llama/dealmelocal/platforms/android/ant-build/AndroidManifest.xml \

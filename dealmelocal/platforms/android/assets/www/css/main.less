@@ -1,0 +1,336 @@
+@primary-500: #2196F3;
+@primary-200: #90CAF9;
+@primary-900: #0D47A1;
+@secondary: #4CAF50;
+@black: black;
+@dark-grey: rgba(0,
+0,
+0,
+.8);
+ html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: @dark-grey;
+
+transition: opacity ease-in .2s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    font: 1em"Roboto Draft", "Roboto", sans-serif
+}
+paper-tabs,
+core-toolbar {
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .2);
+    color: #fff;
+    font: 1.2em"Roboto Slab", serif;
+    background: @primary-500;
+
+}
+core-toolbar paper-tabs {
+    box-shadow: none
+}
+h3 {
+    font-weight: 400;
+    font-size: 1em
+}
+core-scroll-header-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+}
+/* background for toolbar when it is at its full size */
+
+core-scroll-header-panel::shadow #headerBg {
+    background: url(/dealmelocal/www/img/bg9.jpg)@primary-500;
+
+}
+paper-tabs,
+core-toolbar {
+    background-color: #2196f3;
+    font-size: 1.2em;
+    font-family: 'Roboto Slab', serif;
+    color: #fff;
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
+}
+.view {
+    font-size: 250px;
+    background-color: #7dd6fe;
+}
+.content {
+    background-color: #fff;
+    height: 5000px;
+    padding: 20px;
+}
+/* some default styles for mode="cover" on core-scaffold */
+
+core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
+    left: 120px;
+}
+core-scaffold[mode=cover] .content {
+    margin: 20px 100px 20px 0;
+}
+/* background for toolbar when it is condensed */
+
+core-scroll-header-panel::shadow #condensedHeaderBg {
+    background: @primary-500;
+
+}
+.title {
+    -webkit-transform-origin: 0;
+    transform-origin: 0;
+    font-size: 40px
+}
+#container {
+    overflow: auto;
+}
+.ui-button {
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
+    z-index: 100;
+    display: block;
+    margin: -20px 0 0 -80px;
+    margin: 8px;
+    width: 10rem;
+    border-radius: 4px;
+    color: #eee;
+    text-align: center;
+    cursor: default;
+    background: @secondary;
+
+}
+.search {
+    position: fixed;
+    bottom: 5%;
+    left: 5%;
+    z-index: 100;
+    display: block;
+    margin: -20px 0 0 -80px;
+    margin: 8px;
+    color: #eee;
+    text-align: center;
+    cursor: default;
+    background: @secondary;
+
+}
+.view {
+    font-size: 250px;
+    background-color: #ff6347;
+    background: #7dd6fe
+}
+.venue-blocks {
+    text-align: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0
+}
+core-scaffold {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+.content {
+    height: 5000px;
+    background: #fff
+}
+/* some default styles for mode="cover" on core-scaffold */
+
+core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
+    left: 120px
+}
+core-scaffold[mode=cover] .content {
+    margin: 20px 100px 20px 0
+}
+.received {
+    display: none
+}
+body[unresolved] {
+    opacity: 0;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    height: 100%
+}
+.top-buffer {
+    margin-top: 30px
+}
+.bg1 {
+    background: url(beerjpg.jpg) cover no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: auto
+}
+.img-container {
+    width: 200px;
+    height: 100px;
+    display: inline-block;
+    overflow: hidden
+}
+.img-container img {
+    width: 100%
+}
+core-header-panel {
+    height: 100%
+}
+core-header {
+    width: 100%
+}
+:host {
+    display: block;
+    position: relative;
+    overflow: hidden
+}
+#tabContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0
+}
+.tab-content {
+    transition: opacity .1s cubic-bezier(0.4, 0.0, 1, 1), color .1s cubic-bezier(0.4, 0.0, 1, 1);
+    cursor: default;
+    pointer-events: none
+}
+:host(:not(.core-selected)) .tab-content {
+    opacity: .6
+}
+#ink {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: #eee;
+    color: #fff
+}
+:host[noink] #ink {
+    pointer-events: none
+}
+:host-context(paper-tabs[noink]) #ink {
+    pointer-events: none
+}
+#foursquareLogo {
+    padding: 15px;
+    margin: auto
+}
+paper-tab::shadow #ink {
+    color: #eee
+}
+drop-down.margin::shadow core-dropdown {
+    margin: 12px
+}
+drop-down.open-below::shadow core-dropdown {
+    position: absolute;
+    top: 38px;
+    left: 0
+}
+drop-down.constrained::shadow core-dropdown {
+    max-height: 500px
+}
+.dropdown {
+    padding: 12px
+}
+.mapContainer {
+    height: 100%;
+    width: 100%
+}
+#paper-tab-1 {
+    height: 100%
+}
+#hero1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 300px;
+    background: orange
+}
+#hero2 {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    width: 300px;
+    height: 300px;
+    background: orange
+}
+#bottom1,
+#bottom2 {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    height: 50px
+}
+#specialCard {
+    background: #ecf0f1;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 4px
+}
+#venueList {
+    margin: 5px;
+    height: 100%;
+    width: 100%
+}
+.card {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    font-size: 50px;
+    margin: 8px;
+    border-radius: 4px;
+    cursor: default;
+    background: #ff6347
+}
+#map {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+.backdrop {
+    max-height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100%
+}
+.onehun {
+    max-height: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 100%
+}
+#searchBar {
+    background: @primary-200;
+
+margin-bottom: 10px;
+}
+.secondary-text {
+    color: hsla(0, 0, 100%, .5);
+    font-family: "Roboto Draft", "Roboto", sans-serif;
+    font-style: italic
+}
+paper-toast {
+    right: 10px;
+    left: auto;
+}

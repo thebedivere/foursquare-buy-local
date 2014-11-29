@@ -55,7 +55,27 @@ module.exports = function (grunt) {
                 },
                 src: ['dealmelocal/www/css/*.css']
             }
-        }
+        },
+less: {
+  development: {
+    options: {
+      paths: ["assets/css"]
+    },
+    files: {
+      "dealmelocal/www/main.css": "dealmelocal/www/main.less"
+    }
+  },
+  production: {
+    options: {
+      paths: ["assets/css"],
+      cleancss: true
+      
+    },
+    files: {
+      "dealmelocal/www/main.css": "dealmelocal/www/main.less"
+    }
+  }
+}
 
 
     });
@@ -70,6 +90,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-csscss');
+grunt.loadNpmTasks('grunt-contrib-less');
 
     // Default task(s).
     grunt.registerTask('default', ['vulcanize'], ['validation']);
